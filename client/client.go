@@ -573,6 +573,7 @@ func (c *Client) RunSession(tty *os.File, forwardSSHAgent bool, command ...strin
 			}
 		}
 	} else {
+		fmt.Printf("time,%d\n", time.Now().UnixMilli())
 		channel.SendRequest(
 			&ssh3Messages.ChannelRequestMessage{
 				WantReply: true,
@@ -648,6 +649,7 @@ func (c *Client) RunSession(tty *os.File, forwardSSHAgent bool, command ...strin
 					log.Fatal().Msgf("%s", err)
 				}
 
+				fmt.Printf("time,%d\n", time.Now().UnixMilli())
 				log.Trace().Msgf("received data %s", message.Data)
 			case ssh3Messages.SSH_EXTENDED_DATA_STDERR:
 				_, err = os.Stderr.Write([]byte(message.Data))
